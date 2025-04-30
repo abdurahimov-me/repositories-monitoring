@@ -41,6 +41,10 @@ class Employee(BaseModel):
     age = models.PositiveSmallIntegerField(
         verbose_name='Age',
     )
+    photo = models.ImageField(
+        verbose_name='Photo',
+        upload_to='photos/',
+    )
 
     class Meta:
         verbose_name = 'Employee'
