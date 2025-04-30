@@ -1,9 +1,6 @@
 from django.db import models
 
 
-
-
-
 class Positions(models.TextChoices):
     BOSS = 'boss', 'Boss'
     DISPATCHER = 'dispatcher', 'Dispatcher'
@@ -28,6 +25,16 @@ class Employee(BaseModel):
         max_length=100,
         verbose_name='Last Name'
     )
+    father_name = models.CharField(
+        verbose_name='Father Name',
+        max_length=100,
+        null=True,
+        blank=True
+    )
+    phone = models.CharField(
+        verbose_name='Phone',
+        max_length=20,
+    )
     position = models.CharField(
         verbose_name='Position',
         max_length=100,
@@ -36,19 +43,17 @@ class Employee(BaseModel):
     age = models.PositiveSmallIntegerField(
         verbose_name='Age',
     )
-
-    phone = models.CharField(
-        max_length=20,
-        verbose_name='Phone',
+    photo = models.ImageField(
+        verbose_name='Photo',
+        upload_to='photos/',
+    )
+    bio = models.TextField(
+        verbose_name='Bio',
+        blank=True,
+        null=True,
     )
 
     class Meta:
         verbose_name = 'Employee'
         verbose_name_plural = 'Employees'
         db_table = 'employees'
-
-
-
-
-
-
