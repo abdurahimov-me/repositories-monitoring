@@ -25,6 +25,10 @@ class Employee(BaseModel):
         max_length=100,
         verbose_name='Last Name'
     )
+    father_name = models.CharField(
+        verbose_name='Father Name',
+        max_length=100
+    )
     phone = models.CharField(
         verbose_name='Phone',
         max_length=20,
@@ -36,11 +40,6 @@ class Employee(BaseModel):
     )
     age = models.PositiveSmallIntegerField(
         verbose_name='Age',
-    )
-
-    phone = models.CharField(
-        max_length=20,
-        verbose_name='Phone',
     )
 
     class Meta:
