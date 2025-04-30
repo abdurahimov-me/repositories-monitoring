@@ -27,7 +27,9 @@ class Employee(BaseModel):
     )
     father_name = models.CharField(
         verbose_name='Father Name',
-        max_length=100
+        max_length=100,
+        null=True,
+        blank=True
     )
     phone = models.CharField(
         verbose_name='Phone',
@@ -44,6 +46,11 @@ class Employee(BaseModel):
     photo = models.ImageField(
         verbose_name='Photo',
         upload_to='photos/',
+    )
+    bio = models.TextField(
+        verbose_name='Bio',
+        blank=True,
+        null=True,
     )
 
     class Meta:
