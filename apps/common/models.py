@@ -1,9 +1,6 @@
 from django.db import models
 
 
-
-
-
 class Positions(models.TextChoices):
     BOSS = 'boss', 'Boss'
     DISPATCHER = 'dispatcher', 'Dispatcher'
@@ -46,9 +43,3 @@ class Employee(BaseModel):
         verbose_name = 'Employee'
         verbose_name_plural = 'Employees'
         db_table = 'employees'
-
-
-
-
-
-
