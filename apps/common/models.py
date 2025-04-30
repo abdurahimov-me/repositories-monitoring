@@ -25,6 +25,10 @@ class Employee(BaseModel):
         max_length=100,
         verbose_name='Last Name'
     )
+    phone = models.CharField(
+        verbose_name='Phone',
+        max_length=20,
+    )
     position = models.CharField(
         verbose_name='Position',
         max_length=100,
