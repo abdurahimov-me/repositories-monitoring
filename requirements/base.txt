@@ -7,3 +7,4 @@ drf-spectacular
 django-filter
 django-unfold
 django_redis
+celery

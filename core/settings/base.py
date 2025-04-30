@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -40,10 +41,12 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework_simplejwt",
 ]
 
 CUSTOM_APPS = [
     "apps.common",
+    "apps.users"
 ]
 
 THIRD_PARTY_APPS = [
@@ -54,6 +57,7 @@ THIRD_PARTY_APPS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": (
@@ -171,7 +175,7 @@ CACHES = {
 
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Tourism',
+    'TITLE': 'Breeze',
     'DESCRIPTION': 'Automation',
     'VERSION': '0.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
@@ -183,4 +187,9 @@ SPECTACULAR_SETTINGS = {
     'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
 }
 
+AUTH_USER_MODEL = 'users.User'
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=24),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
+}
