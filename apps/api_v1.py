@@ -8,9 +8,4 @@ urlpatterns = [
         name='common'
 
     ),
-    path(
-        'users/',
-        include('apps.users.urls'),
-        name='users'
-    )
 ]

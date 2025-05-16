@@ -46,7 +46,6 @@ DJANGO_APPS = [
 
 CUSTOM_APPS = [
     "apps.common",
-    "apps.users"
 ]
 
 THIRD_PARTY_APPS = [
