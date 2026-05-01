@@ -1,6 +1,4 @@
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Type
 from zoneinfo import ZoneInfo
 
 from django.conf import settings
@@ -74,44 +72,3 @@ def get_object(
     if not obj:
         raise Http404
     return obj
-
-
-@dataclass
-class CheckoutManager:
-    model: Type[Model]
-    balance_field: str = 'balance'
-
-    def __add__(self, other):
-        return self.add(other)
-
-    def __radd__(self, other):
-        return self.add(other)
-
-    def __sub__(self, other):
-        return self.add(-other)
-
-    def __rsub__(self, other):
-        raise NotImplementedError("Subtraction with reversed operands is not supported.")
-
-    @property
-    def __checkout(self):
-        # Get the first object, or return None if no objects exist
-        return self.model.objects.first()
-
-    @property
-    def balance(self):
-        checkout = self.__checkout
-        if checkout:
-            return getattr(checkout, self.balance_field)
-        raise ValueError("No checkout instance found.")
-
-    def add(self, amount):
-        checkout = self.__checkout
-        if checkout:
-            current_balance = getattr(checkout, self.balance_field)
-            new_balance = current_balance + amount
-            setattr(checkout, self.balance_field, new_balance)
-            checkout.save()
-            return new_balance
-        else:
-            raise ValueError("No checkout instance found. Cannot add balance.")

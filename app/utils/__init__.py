@@ -1,6 +1,5 @@
 __all__ = (
     'BadRequest',
-    'CheckoutManager',
     'now',
     'get_object',
     'create_serializer',
