@@ -53,5 +53,5 @@ volumes:
 
 networks:
   local:
-    name: logistics_shared_net
+    name: shared_net
     external: false
