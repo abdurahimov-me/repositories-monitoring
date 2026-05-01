@@ -8,3 +8,4 @@ django-filter
 django-unfold
 django_redis
 djangorestframework-simplejwt
+invoke
