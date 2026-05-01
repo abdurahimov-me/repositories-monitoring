@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:15
     container_name: ${PROJECT_NAME}_db
-    restart: always
+    restart: unless-stopped
     networks:
       - local
     env_file:
@@ -18,6 +18,7 @@ services:
   redis:
     image: redis:latest
     container_name: ${PROJECT_NAME}_redis
+    restart: unless-stopped
     networks:
       - local
     volumes:
@@ -29,6 +30,7 @@ services:
       dockerfile: ./docker/Dockerfile
     container_name: ${PROJECT_NAME}_app
     image: ${PROJECT_NAME}_app_img:latest
+    restart: unless-stopped
     networks:
       - local
     entrypoint: /scripts/entrypoint.sh
