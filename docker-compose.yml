@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:15
+    container_name: ${PROJECT_NAME}_db
+    restart: always
+    networks:
+      - local
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  redis:
+    image: redis:latest
+    container_name: ${PROJECT_NAME}_redis
+    networks:
+      - local
+    volumes:
+      - redis_data:/data
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: ${PROJECT_NAME}_app
+    networks:
+      - local
+    entrypoint: /scripts/entrypoint.sh
+    volumes:
+      - ./static:/app/static
+      - ./app/logs:/var/log/app
+    ports:
+      - "127.0.0.1:8075:8000"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.prod
+      - DB_HOST=${PROJECT_NAME}_db
+      - REDIS_URL=redis://${PROJECT_NAME}_redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  local:
+    name: logistics_shared_net
+    external: false
