@@ -28,6 +28,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: ${PROJECT_NAME}_app
+    image: ${PROJECT_NAME}_app_img:latest
     networks:
       - local
     entrypoint: /scripts/entrypoint.sh
@@ -35,7 +36,7 @@ services:
       - ./static:/app/static
       - ./app/logs:/var/log/app
     ports:
-      - "127.0.0.1:8075:8000"
+      - "127.0.0.1:${APP_PORT}:8000"
     env_file:
       - .env
     environment:
